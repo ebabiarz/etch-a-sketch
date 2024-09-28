@@ -4,8 +4,27 @@ createGrid(16);
 
 changeResolution();
 
+reset();
+
 draw();
 
+
+// function for Reset button
+function reset() {
+    const reset = document.querySelector("#Reset");
+
+    reset.addEventListener("click", () => {
+        const confirmReset = confirm("Reset canvas?");
+
+        if (confirmReset === true) {
+            const squares = document.querySelectorAll(".Row");
+
+            squares.forEach((square) => {
+                square.style.opacity = 0;
+            });
+        };
+    });
+};
 
 // function for Change Resolution button
 function changeResolution() {
@@ -21,9 +40,9 @@ function changeResolution() {
             alert("Resolution changed to " + newResolution + "x" + newResolution);
         } else {
             alert("Unsupported resolution. Please enter a number 1 to 100");
-        }
+        };
     });
-}
+};
 
 //function that sets squares to change to black on mouseover
 function draw() {
@@ -31,14 +50,14 @@ function draw() {
 
     squares.forEach((square) => {
         let opacity = 0.1;
-            square.addEventListener("mouseover", () => {
-                square.style.opacity = opacity;
-                if (opacity < 1) {
-                    opacity += 0.1;
-                };
-            });
+        square.addEventListener("mouseover", () => {
+            square.style.opacity = opacity;
+            if (opacity < 1) {
+                opacity += 0.1;
+            };
+        });
     });
-}
+};
 
 // function that removes all children from #Container div
 function removeChildren() {
@@ -46,8 +65,8 @@ function removeChildren() {
 
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
-    }
-}
+    };
+};
 
 // function that creates a grid
 function createGrid(dim) {
