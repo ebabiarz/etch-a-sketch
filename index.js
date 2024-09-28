@@ -2,32 +2,41 @@ const container = document.querySelector("#Container");
 
 createGrid(16);
 
-const resolution = document.querySelector("#Change-Resolution");
-
-resolution.addEventListener("click", () => {
-    const newResolution = prompt("Enter a number 1 to 100");
-
-    if (newResolution > 0 && newResolution <= 100) {
-        removeChildren();
-        createGrid(newResolution);
-        draw();
-        alert("Resolution changed to " + newResolution + "x" + newResolution);
-    } else {
-        alert("Unsupported resolution. Please enter a number 1 to 100");
-    }
-});
+changeResolution();
 
 draw();
 
 
+// function for Change Resolution button
+function changeResolution() {
+    const resolution = document.querySelector("#Change-Resolution");
+
+    resolution.addEventListener("click", () => {
+        const newResolution = prompt("Enter a number 1 to 100");
+
+        if (newResolution > 0 && newResolution <= 100) {
+            removeChildren();
+            createGrid(newResolution);
+            draw();
+            alert("Resolution changed to " + newResolution + "x" + newResolution);
+        } else {
+            alert("Unsupported resolution. Please enter a number 1 to 100");
+        }
+    });
+}
+
 //function that sets squares to change to black on mouseover
 function draw() {
-    const gridSquare = document.querySelectorAll(".Row");
+    const squares = document.querySelectorAll(".Row");
 
-    gridSquare.forEach((square) => {
-        square.addEventListener("mouseover", () => {
-            square.classList.add("Square-Black");
-        });
+    squares.forEach((square) => {
+        let opacity = 0.1;
+            square.addEventListener("mouseover", () => {
+                square.style.opacity = opacity;
+                if (opacity < 1) {
+                    opacity += 0.1;
+                };
+            });
     });
 }
 
@@ -48,6 +57,8 @@ function createGrid(dim) {
         for (let i=0; i < dim; i++) {
             const row = document.createElement("div");
             row.classList.add("Row");
+            row.style.opacity = 0;
+            row.style.backgroundColor = "black";
             column.appendChild(row);
         };
         container.appendChild(column);
